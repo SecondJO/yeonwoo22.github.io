@@ -4,7 +4,7 @@ fetch("https://raw.githubusercontent.com/yeonwoo22/chemistry/main/data.json")
     .then(response => response.json())
     .then(json => {
         data = json
-    })
+})
 
 
 let mode = "Symbol"
@@ -45,10 +45,11 @@ function shake(){
 
     if (mode == "Number"){
         display.textContent = randomIdx;
-        fullname.textContent = " ";
+        fullname.textContent = "Atomic";
     } else {
         display.textContent = keys[randomIdx];
         fullname.textContent = data[keys[randomIdx]]['fullName'];
+        
     }
 
 }
@@ -56,32 +57,79 @@ function shake(){
 function submit(){
     const correctBox = document.querySelector('.correct');
     const wrongBox = document.querySelector('.wrong');
+    const fullNameBox = document.querySelector('.element-fullname');
     if (mode == "Number"){
         const answerBox = document.querySelector('.answerBox');
         const answer = answerBox.value;
+        const numberBox = document.querySelector('.element-name');
+        const number = numberBox.textContent;
         if(data[answer] != undefined) {
-            const number = document.querySelector('.element-name').textContent;
             if(number == data[answer]['atomicNumber']){
                 correctBox.textContent++;
-                answerBox.value = "";                
+                answerBox.value = ""; 
+                shake();               
             } else {
                 wrongBox.textContent++;
                 answerBox.value = "";
+                numberBox.style.color = "red";
+                const submitBtn = document.querySelector('.check');
+                submitBtn.disabled = true;
+                fullNameBox.style.color = "red";
+                const keys = Object.keys(data);
+                fullNameBox.textContent = keys[number - 1];
+                setTimeout(function() {
+                    numberBox.style.color = "black";
+                    submitBtn.disabled = false;
+                    fullNameBox.style.color = "black";
+                    shake();
+                }, 1000);    
             }
-        } else {
-           wrongBox.textContent++;
-           answerBox.value = "";     
-        }
-    } else {
-        const answerBox = document.querySelector('.answerBox');
-        const symbol = document.querySelector('.element-name').textContent;
-        if(data[symbol]['atomicNumber'] == answerBox.value) {
-            correctBox.textContent++;
-            answerBox.value = "";
         } else {
             wrongBox.textContent++;
             answerBox.value = "";
+            numberBox.style.color = "red";
+            const submitBtn = document.querySelector('.check');
+            submitBtn.disabled = true;
+            fullNameBox.style.color = "red";
+            const keys = Object.keys(data);
+            fullNameBox.textContent = keys[number - 1];
+            setTimeout(function() {
+                numberBox.style.color = "black";
+                submitBtn.disabled = false;
+                fullNameBox.style.color = "black";
+                shake();
+            }, 1000);      
+        }
+    } else {
+        const answerBox = document.querySelector('.answerBox');
+        const symbolBox = document.querySelector('.element-name');
+        const symbol = symbolBox.textContent;
+        if(data[symbol]['atomicNumber'] == answerBox.value) {
+            correctBox.textContent++;
+            answerBox.value = "";
+            shake();
+        } else {
+            wrongBox.textContent++;
+            answerBox.value = "";
+            symbolBox.style.color = "red";
+            fullNameBox.style.color = "red";
+            fullNameBox.textContent = data[symbol]['atomicNumber'];
+            const submitBtn = document.querySelector('.check');
+            submitBtn.disabled = true;
+            setTimeout(function(){
+                symbolBox.style.color = "black";
+                fullNameBox.style.color = "black";
+                submitBtn.disabled = false;
+                shake();
+            }, 1000);
         }
     }
-    shake();
+}
+
+function addValue(value) {
+    document.querySelector('.answerBox').value += value;
+}
+
+function remove(){
+    document.querySelector('.answerBox').value = "";
 }

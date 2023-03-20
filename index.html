@@ -24,18 +24,18 @@
     <input class="answerBox" type="text" placeholder="answer">
     <button class="check" onclick="submit()">Submit</button>
     <div class="keypad">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
+        <button onclick="addValue('1')">1</button>
+        <button onclick="addValue('2')">2</button>
+        <button onclick="addValue('3')">3</button>
+        <button onclick="addValue('4')">4</button>
+        <button onclick="addValue('5')">5</button>
+        <button onclick="addValue('6')">6</button>
+        <button onclick="addValue('7')">7</button>
+        <button onclick="addValue('8')">8</button>
+        <button onclick="addValue('9')">9</button>
         <button>#</button>
-        <button>0</button>
-        <button class="erase">⌫</button>
+        <button onclick="addValue('0')">0</button>
+        <button class="erase" onclick="remove()">⌫</button>
     </div>
     <div class="counter">
         <span class="correct">0</span>
