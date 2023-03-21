@@ -6,8 +6,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 50vh;
-    margin: 0;
-    position: relative;
+    margin-top: 3rem;
 }
 h1 {
     font-family: 'Cabin';
