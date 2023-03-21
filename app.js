@@ -6,6 +6,13 @@ fetch("https://raw.githubusercontent.com/yeonwoo22/chemistry/main/data.json")
         data = json
 })
 
+function enter(){
+    if(window.event.keyCode == 13){
+        document.querySelector('.check').click();
+    }
+}
+
+
 
 let mode = "Symbol"
 function activateNumberMode() {
@@ -66,8 +73,18 @@ function submit(){
         if(data[answer] != undefined) {
             if(number == data[answer]['atomicNumber']){
                 correctBox.textContent++;
-                answerBox.value = ""; 
-                shake();               
+                answerBox.value = "";
+                numberBox.style.color = "blue";
+                const submitBtn = document.querySelector('.check');
+                submitBtn.disabled = true;
+                fullNameBox.style.color = "blue";
+                fullNameBox.textContent = answer;
+                setTimeout(function(){
+                    numberBox.style.color = "black";
+                    submitBtn.disabled = false;
+                    fullNameBox.style.color = "black";
+                    shake();
+                }, 500);            
             } else {
                 wrongBox.textContent++;
                 answerBox.value = "";
@@ -107,7 +124,16 @@ function submit(){
         if(data[symbol]['atomicNumber'] == answerBox.value) {
             correctBox.textContent++;
             answerBox.value = "";
-            shake();
+            symbolBox.style.color = "blue";
+            const submitBtn = document.querySelector('.check');
+            submitBtn.disabled = true;
+            fullNameBox.style.color = "blue";
+            setTimeout(function(){
+                symbolBox.style.color = "black";
+                submitBtn.disabled = false;
+                fullNameBox.style.color = "black";
+                shake();
+            }, 500);
         } else {
             wrongBox.textContent++;
             answerBox.value = "";
