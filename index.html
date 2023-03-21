@@ -10,7 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Periodic table</h1>
+    <div class="title-container">
+        <div class="left-container">
+            <span class="correct">0</span>
+        </div>
+        <h1>Periodic table</h1>
+        <div class="right-container">
+            <span class="wrong">0</span>
+        </div>
+    </div>
     <div class="wrapper">
         <button class="symbol-btn active" onclick="activateSymbolMode()">Symbol</button>
         <button class="number-btn" onclick="activateNumberMode()">Number</button>
@@ -21,26 +29,8 @@
     </div>
     <div class="element-name">H</div>
     <div class="element-fullname">Hydrogen</div>
-    <input class="answerBox" type="number" placeholder="answer" onkeyup="enter()">
+    <input class="answerBox" type="decimal" placeholder="answer" onkeyup="enter()">
     <button class="check" onclick="submit()">Submit</button>
-    <div class="keypad">
-        <button onclick="addValue('1')">1</button>
-        <button onclick="addValue('2')">2</button>
-        <button onclick="addValue('3')">3</button>
-        <button onclick="addValue('4')">4</button>
-        <button onclick="addValue('5')">5</button>
-        <button onclick="addValue('6')">6</button>
-        <button onclick="addValue('7')">7</button>
-        <button onclick="addValue('8')">8</button>
-        <button onclick="addValue('9')">9</button>
-        <button>#</button>
-        <button onclick="addValue('0')">0</button>
-        <button class="erase" onclick="remove()">⌫</button>
-    </div>
-    <div class="counter">
-        <span class="correct">0</span>
-        <span class="wrong">0</span>
-    </div>
     <script src="app.js"></script>
 </body>
 </html>

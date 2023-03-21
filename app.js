@@ -16,7 +16,7 @@ function enter(){
 
 let mode = "Symbol"
 function activateNumberMode() {
-    document.querySelector('.answerBox').type = "number";
+    document.querySelector('.answerBox').type = "text";
     // 원소번호 모드 버튼에 active 클래스 추가
     const numberBtn = document.querySelector('.number-btn');
     numberBtn.classList.add('active');
@@ -30,7 +30,7 @@ function activateNumberMode() {
 }
 
 function activateSymbolMode() {
-    document.querySelector('.answerBox').type = "text";
+    document.querySelector('.answerBox').type = "decimal";
     // 원소번호 모드 버튼에 active 클래스 추가
     const numberBtn = document.querySelector('.symbol-btn');
     numberBtn.classList.add('active');
