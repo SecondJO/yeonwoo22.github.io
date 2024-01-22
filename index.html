@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Periodic table</title>
+    <title>PAR to CSV</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="title-container">
-        <div class="left-container">
-            <span class="correct">0</span>
+    <div class="container">
+        <h1>PAR to CSV Converter</h1>
+        <div id="alert-message" class="hidden"></div>
+        <div id="drop-zone">여기에 파일을 드롭하세요.</div>
+        <div class="button-row">
+            <button id="toggle-selection">모두 선택</button>
+            <button id="delete-selected">선택된 파일 삭제</button>
         </div>
-        <h1>Atomic</h1>
-        <div class="right-container">
-            <span class="wrong">0</span>
+        <div class="file-list-container">
+            <ul id="file-list"></ul>
         </div>
+        <!-- <button id="read-files">읽기</button> -->
+        <div>
+            <span>Save Segment Index : </span>
+            <select id="segment-list">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>    
+        <button id="convert-files">변환</button>
     </div>
-    <div class="wrapper">
-        <button class="symbol-btn active" onclick="activateSymbolMode()">Symbol</button>
-        <button class="number-btn" onclick="activateNumberMode()">Number</button>
-    </div>
-    <div class="range">
-        <input class="min" type="text" placeholder="1" value="1">
-        <input class="max" type="text" placeholder="40" value="40">
-    </div>
-    <div class="element-name">H</div>
-    <div class="element-fullname">Hydrogen</div>
-    <input class="answerBox" type="number" placeholder="answer" onkeyup="enter()">
-    <button class="check" onclick="submit()">Submit</button>
-    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
