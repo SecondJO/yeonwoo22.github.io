@@ -89,6 +89,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var allValues  = []
+        var maxPeakValues = []
+        var minPeakValues = []
+        var optionValues = []
+        var fileNames = []
         var maxRows = 0;
 
         for (const checkbox of selectedFiles) {
@@ -96,13 +100,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var fileItem = checkbox.closest('.file-item');
                 var file = fileItem.file;
+                fileNames.push(file.name);
 
                 var fileSelect = fileItem.getElementsByClassName('custom-select')[0];
                 var optionValue = fileSelect.value;
-                console.log(optionValue); 
+                optionValues.push(optionValue);
 
                 var reader = new FileReader();
                 var localValues  = [];
+                var minPeakValue = null;
+                var maxPeakValue = null;
 
                 reader.onload = function (e) {
                     var content = e.target.result;
@@ -114,10 +121,22 @@ document.addEventListener('DOMContentLoaded', function () {
                             var parts = line.split(',');
                             if(parts.length > 4 && parts[0] == optionValue){
                                 localValues.push(parts[2] + ',' + parts[3]);
+                                if(!maxPeakValue){
+                                    maxPeakValue = parts[3];
+                                } else {
+                                    maxPeakValue = Math.max(parts[3], maxPeakValue);
+                                }
+                                if(!minPeakValue){
+                                    minPeakValue = parts[3];
+                                } else {
+                                    minPeakValue = Math.min(parts[3], minPeakValue);
+                                }
                             }
                         }); 
                     }
                     allValues.push(localValues);
+                    maxPeakValues.push(maxPeakValue);
+                    minPeakValues.push(minPeakValue);
                     maxRows = Math.max(maxRows, localValues.length);
                     resolve();
                 }
@@ -128,17 +147,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        var csvContent = "";
+        var plotCSVContent = Array.from(selectedFiles).map((_, i) => `${fileNames[i]}, segement#${optionValues[i]}`).join(", ") + "\n";
+        plotCSVContent += Array(selectedFiles.length).fill("E(V), I(A)").join(",") + "\n";
+
+        // Values
         for(var i = 0; i < maxRows; i++){
             var rowValues = allValues.map(function(values) {
                 return values[i] || ", ";
             });
-            csvContent += rowValues.join(",") + "\n";
+            plotCSVContent += rowValues.join(",") + "\n";
         }
-        downloadCSV(csvContent, "output.csv");
+        downloadCSV(plotCSVContent, "plot.csv");
+        
+        var peakCSVContent = "Filename, Segment#, minpeak current, maxpeak current\n";
+        for(var i = 0; i < selectedFiles.length; i++){
+            peakCSVContent += `${fileNames[i]}, ${optionValues[i]}, ${minPeakValues[i]}, ${maxPeakValues[i]}` + "\n";
+        }
+        downloadCSV(peakCSVContent, "peak.csv");
     });
     
-    function downloadCSV(csvContent, fileName) {
+    async function downloadCSV(csvContent, fileName) {
         var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         var link = document.createElement("a");
         link.setAttribute("href", URL.createObjectURL(blob));
@@ -193,6 +221,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         reader.onload = function (e) {
             var content = e.target.result;
+
+            // Get Action Name
+            var Action1Part = content.match(/<Action1>([\s\S]*?)<\/Action1>/)
+            if(Action1Part && Action1Part[1]){
+                const nameKeyword = "Name="
+                const startIndex = Action1Part[1].indexOf(nameKeyword);
+                if(startIndex === -1){
+                    li.actionname = "";   
+                } else {
+                    const nameStart = startIndex + nameKeyword.length;
+                    const nameEnd = Action1Part[1].indexOf("\n", nameStart);
+                    const name = nameEnd === -1 ? Action1Part[1].substring(nameStart) : Action1Part[1].substring(nameStart, nameEnd-1);
+                    li.actionname = name;
+                }
+            }
 
             var segmentMatch = content.match(/<Segment1>([\s\S]*?)<\/Segment1>/);
             if(segmentMatch && segmentMatch[0]) {
