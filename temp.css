@@ -1,0 +1,144 @@
+body {
+    font-family: 'Arial', sans-serif, 'Cabin';
+    background-color: #ebebeb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    margin-top: 3rem;
+}
+h1 {
+    font-family: 'Cabin';
+    color: #7003b9;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    margin: 0 20px;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-container, .right-container {
+    font-family: 'Cabin';
+    font-size: 2rem;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+button {
+    font-family: 'Cabin';
+    font-weight: bold;
+    background-color: #74ead6;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.symbol-btn.active {
+    background-color: #008CBA;
+}
+
+.number-btn.active {
+    background-color: #008CBA;
+}
+
+button:not(:last-child) {
+    margin-right: 10px;
+}
+button:hover {
+    background-color: #0077b6;
+}
+input {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    font-size: 1rem;
+    padding: 10px;
+    transition: border-color 0.3s;
+}
+input:focus {
+    border-color: #0095f6;
+}
+.wrapper {
+    display: flex;
+    margin-bottom: 10px;
+
+}
+.element-name {
+    font-family: 'Cabin';
+    font-size: 5rem;
+    font-weight: bold;
+    color: #262626;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.element-fullname {
+    font-family: 'Cabin';
+    font-size: 1.2rem;
+    color: #262626;
+    margin-bottom: 1rem;
+}
+
+.counter {
+    font-size: 1.25rem;
+    color: #262626;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.correct, .wrong {
+    display: inline-block;
+}
+
+.correct {
+    font-family: 'Cabin';
+    color: blue;
+    text-align: center;
+    margin-left: 30px;
+    font-size: 2rem;
+}
+.wrong {
+    font-family: 'Cabin';
+    color: red;
+    text-align: center;
+    margin-right: 30px;
+    font-size: 2rem;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.check {
+    background-color:#cf88fa;
+    margin-top: 10px;
+}
+
+.answerBox {
+    text-align: center;
+}
+
+.min, .max {
+    width: 50px;
+    text-align: center;
+}
+.min {
+    margin-right: 10px;
+}
+.max {
+    margin-left: 10px;
+}
