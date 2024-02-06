@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var lines = segmentMatch[1].split('\n');
                         lines.slice(4, -1).forEach(function(line) {
                             var parts = line.split(',');
-                            if(parts.length > 4 && parts[0] == optionValue){
+                            if(parts.length > 4 && parts[0] == optionValue && parts[7] <= 1000){
                                 localValues.push(parts[2] + ',' + parts[3]);
                                 if(!maxPeakValue){
                                     maxPeakValue = parts[3];
