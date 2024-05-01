@@ -4,6 +4,7 @@ fetch("https://raw.githubusercontent.com/yeonwoo22/chemistry/main/data.json")
     .then(response => response.json())
     .then(json => {
         data = json
+    // ADD FOR FORK COMMIT TEST
 })
 
 function enter(){
